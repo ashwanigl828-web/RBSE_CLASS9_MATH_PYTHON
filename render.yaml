@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: rbse-math-bot-python
+    env: python
+    plan: free
+    startCommand: "gunicorn app:app --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
+      - key: TZ
+        value: Asia/Kolkata
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_ADMIN_CHAT_ID
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GOOGLE_SHEET_ID
+        sync: false
