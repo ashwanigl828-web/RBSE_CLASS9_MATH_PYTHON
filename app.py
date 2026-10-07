@@ -20,8 +20,18 @@ def ping():
 
 # Start the Telegram Bot in a separate background thread
 # This will run when gunicorn loads the app
-logger.info("Starting Telegram Bot thread...")
-bot_thread = threading.Thread(target=start_bot)
+import sys
+
+def run_bot():
+    try:
+        logger.info("Starting Telegram Bot...")
+        sys.stdout.flush()
+        start_bot()
+    except Exception as e:
+        logger.error(f"Telegram Bot crashed: {e}")
+        sys.stdout.flush()
+
+bot_thread = threading.Thread(target=run_bot)
 bot_thread.daemon = True
 bot_thread.start()
 
